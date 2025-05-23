@@ -1,10 +1,44 @@
-from datetime import date
-today = date.today()
+import datetime 
+from PIL import Image, ImageDraw, ImageFont
+import numpy as np
 
-day = int(input('Введите день: '))
-month = int(input('Введите месяц: '))
-year = int(input('Введите год: '))
 
-age = today.year - year - ((today.month, today.day) < (month, day))
+# вопрос 1
+day_user = int(input('Введите день: '))
+month_user = int(input('Введите месяц: '))
+year_user = int(input('Введите год: '))
+TODAY = datetime.date.today()
+
+
+# вопрос 2
+week_days=["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"]
+week_num=datetime.date(year_user,month_user,day_user).weekday()
+print(week_days[week_num])
+
+
+# вопрос 3 
+if (year_user % 4 == 0 and year_user % 100 != 0) or year_user % 400 == 0:
+    print('Год високосный.')
+else:
+    print('Год не високосный.')
+
+
+# вопрос 4
+age=TODAY.year-year_user-((TODAY.month,TODAY.day)<(month_user, day_user))
 
 print(f'Ваш возраст: {age}')
+
+# вопрос 5
+day_user = str(day_user) 
+month_user = str (month_user)
+year_user = str (year_user)
+text = (day_user + '  ' + month_user + '  ' + year_user)
+myfont = ImageFont.truetype("verdanab.ttf", 12)
+size = myfont.getbbox(text)[2:]
+img = Image.new("1",size,"black")
+draw = ImageDraw.Draw(img)
+draw.text((0, 0), text, "white", font=myfont)
+pixels = np.array(img, dtype=np.uint8)
+chars = np.array([' ','*'], dtype="U1")[pixels]
+strings = chars.view('U' + str(chars.shape[1])).flatten()
+print( "\n".join(strings))
