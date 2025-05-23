@@ -2,7 +2,7 @@ import datetime
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 
-
+print("Введите Вашу дату рождения в формате ДД/ММ/ГГГГ")
 # вопрос 1
 day_user = int(input('Введите день: '))
 month_user = int(input('Введите месяц: '))
